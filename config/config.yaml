@@ -1,5 +1,5 @@
 app:
-  Addr: 127.0.0.1
+  Addr: 0.0.0.0
   Port: 8084
 
 db:
@@ -8,6 +8,6 @@ db:
   Port: 3306
   UserName: root
   Password: 123456
-  Host: 127.0.0.1
+  Host: 192.168.2.12
   Charset: utf8
 

@@ -20,7 +20,6 @@ type data struct {
 	Islimit   string   `json:"islimit"`
 }
 
-// Register 用户注册
 func Get(c *gin.Context) {
 	// 获取db
 	db := common.GetDB()

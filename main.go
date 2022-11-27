@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"klsb/common"
 	"klsb/router"
 )
@@ -15,7 +16,12 @@ func main() {
 	//创建DB实例进行数据库操作
 	db := common.GetDB()
 	//延迟关闭数据库
-	defer db.Close()
+	defer func(db *gorm.DB) {
+		err := db.Close()
+		if err != nil {
+			return
+		}
+	}(db)
 
 	//r.Use(middleware.Cors())
 	r = router.InitRouter(r)
@@ -23,5 +29,8 @@ func main() {
 	addr := common.Conf.APP.Addr
 	port := common.Conf.APP.Port
 
-	r.Run(fmt.Sprintf("%s:%s", addr, port))
+	err := r.Run(fmt.Sprintf("%s:%s", addr, port))
+	if err != nil {
+		return
+	}
 }
